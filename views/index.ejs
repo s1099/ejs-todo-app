@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Todo App</title>
+  </head>
+  <body
+    class="bg-gray-100 min-h-screen flex items-center justify-center flex-col"
+  >
+    <h1 class="text-3xl font-bold mb-8">Todo List</h1>
+    <form action="/add" method="post">
+      <input
+        class="border border-gray-300 rounded-xl px-4 py-2 mr-2"
+        type="text"
+        name="task"
+        placeholder="New task"
+        required
+      />
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-xl">
+        Add Task
+      </button>
+    </form>
+    <div
+      class="max-h-80 w-[550px] overflow-y-auto rounded-xl drop-shadow-xl m-5"
+    >
+      <ul class="list-none">
+        <% todoTasks.forEach(todo => { %>
+        <li
+          class="bg-white shadow mb-4 p-4 flex items-center justify-between rounded-xl"
+        >
+          <div class="font-sans font-semibold">
+            <%= todo.task %>
+            <span class="text-gray-500 text-sm ml-50"
+              >(<%= new Date(todo.date).toLocaleString() %>)</span
+            >
+          </div>
+          <form
+            action="/delete/<%= todo._id %>"
+            method="post"
+            style="display: inline"
+          >
+            <button
+              type="submit"
+              class="bg-green-500 text-white px-3 py-1 rounded-lg"
+            >
+              Complete
+            </button>
+          </form>
+        </li>
+        <% }); %>
+      </ul>
+    </div>
+  </body>
+</html>
